@@ -6,6 +6,7 @@ const {query, result} = require('express-validator')
 const pool = require('../db')
 const session = require('express-session')
 
+
 router.get('/', async function (req, res) {
     res.render('index.njk')
 })
@@ -24,8 +25,13 @@ router.get('/user/:name', async function (req, res) {
 })
 
 router.get('/users', async function (req, res) {
+    try{
     const [users] = await pool.promise().query('SELECT * FROM alea_lacta_est_user')
     res.json(users)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
 })
 
 router.get('/create_account', async function (req, res) {
@@ -48,6 +54,14 @@ router.post('/uppdate_user', async function (req, res){
 
 router.post('/delete_user', async function (req, res){
     res.redirect('/')
+})
+
+router.get('/hashtest', async function (req, res){
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10;
+    const myPlaintextPassword = 's0/\/\P4$$w0rD';
+    const someOtherPlaintextPassword = 'not_bacon';
+
 })
 
 
