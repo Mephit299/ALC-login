@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const {query, result} = require('express-validator')
+const {query, validationResult} = require('express-validator')
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const pool = require('../db')
 const session = require('express-session')
@@ -15,7 +18,19 @@ router.get('/login', async function (req, res) {
     res.render('login.njk')
 })
 
-router.post('/login', async function(req, res){
+router.post('/login', 
+query(username).isLength({min: 4, max: 30}), 
+query(password).isLength({min: 4, max: 30}),  
+async function(req, res){
+    const result = validationResult
+    
+    try{
+        const user = await pool.promise().query(`SELECT * FROM alea_lacta_est_user`)
+
+     } catch{
+        res.redirect('/')
+    }
+
     req.session.name = req.body.username
     res.redirect(`user/:${req.body.name}`)
 })
@@ -57,10 +72,14 @@ router.post('/delete_user', async function (req, res){
 })
 
 router.get('/hashtest', async function (req, res){
-    const bcrypt = require('bcrypt');
-    const saltRounds = 10;
-    const myPlaintextPassword = 's0/\/\P4$$w0rD';
+    
+    const myPlaintextPassword = 'test';
     const someOtherPlaintextPassword = 'not_bacon';
+
+    bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+        console.log(hash)
+        return res.json(hash)
+    })
 
 })
 

@@ -50,3 +50,12 @@ Alvin
 
 Fixat så att session fungerar.
 Börgat med bcrypt.
+
+---
+
+Arbete del 5
+
+mephit
+
+bcrypt test.
+Början på login route.
