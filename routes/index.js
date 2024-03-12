@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const [query, result] = require('express-validator')
+const {query, result} = require('express-validator')
 
 const pool = require('../db')
+const session = require('express-session')
 
 router.get('/', async function (req, res) {
     res.render('index.njk')
@@ -14,12 +15,17 @@ router.get('/login', async function (req, res) {
 })
 
 router.post('/login', async function(req, res){
-
-    res.redirect('/user')
+    req.session.name = req.body.username
+    res.redirect(`user/:${req.body.name}`)
+})
+router.get('/user/:name', async function (req, res) {
+    console.log(req.session.name)
+    res.render('user.njk', {username: req.session.name})
 })
 
-router.get('/user', async function (req, res) {
-    res.render('/user.njk')
+router.get('/users', async function (req, res) {
+    const [users] = await pool.promise().query('SELECT * FROM alea_lacta_est_user')
+    res.json(users)
 })
 
 router.get('/create_account', async function (req, res) {
@@ -28,7 +34,7 @@ router.get('/create_account', async function (req, res) {
 
 router.post('/create_account', async function (req, res) {
     //kanske borde gå till index istället
-    res.redirect('/user')
+    res.redirect(`/user/:${req.body.username}`)
 })
 
 router.get('/uppdate_user', async function (req, res) {
@@ -37,7 +43,7 @@ router.get('/uppdate_user', async function (req, res) {
 
 router.post('/uppdate_user', async function (req, res){
 
-    res.redirect('/user')
+    res.redirect(`/user/:${session.username}`)
 })
 
 router.post('/delete_user', async function (req, res){

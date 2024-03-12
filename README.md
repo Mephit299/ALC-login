@@ -36,3 +36,12 @@ Mer routes.
 Börjat med login formuläret.
 
 ---
+
+Arbete del 3
+
+Fabian
+
+gjort så att login form funkar
+lagt till navbar från Bootstrap
+
+---
