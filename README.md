@@ -9,3 +9,6 @@ Baskod med bootstrap.
 npm run dev visar up index.njk.
 Kod för att prata med databasen finns men används inte (det finns ingen databas).
 
+## 12/03 - 24
+Planering enligt instruktioner
+![image](/public/image)
