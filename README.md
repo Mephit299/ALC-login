@@ -13,3 +13,17 @@ Kod för att prata med databasen finns men används inte (det finns ingen databa
 Planering enligt instruktioner.
 Resultat:
 ![Fabians fina bild på planeringen](planering.jpg)
+
+--- 
+
+Arbets del 1.
+
+
+Alvin
+
+
+Skapat tabel i databasen.
+Skapat .njk filer.
+Skapat några routes i index.js
+
+---
