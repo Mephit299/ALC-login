@@ -11,4 +11,4 @@ Kod för att prata med databasen finns men används inte (det finns ingen databa
 
 ## 12/03 - 24
 Planering enligt instruktioner
-![image](planering.jpg)
+![Fabians fina bild på planeringen](planering.jpg)
