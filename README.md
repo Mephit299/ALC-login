@@ -18,9 +18,7 @@ Resultat:
 
 Arbets del 1.
 
-
 Alvin
-
 
 Skapat tabel i databasen.
 Skapat .njk filer.
@@ -45,3 +43,10 @@ gjort så att login form funkar
 lagt till navbar från Bootstrap
 
 ---
+
+Arbets del 4
+
+Alvin
+
+Fixat så att session fungerar.
+Börgat med bcrypt.

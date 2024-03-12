@@ -2,11 +2,11 @@ require('dotenv').config()
 const express = require('express')
 const nunjucks = require('nunjucks')
 const bodyParser = require('body-parser')
-//  const session = require('express-session')
+const session = require('express-session')
 
 const indexRouter = require('./routes/index')
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3000
 
 const app = express()
 app.use(express.json())
@@ -20,14 +20,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
-//app.use(
-//session({
-//    secret: "väldigttrevligt",
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {sameSite: true},
-//  })
-//)
+app.use(
+session({
+    secret: "väldigttrevligt",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {sameSite: true},
+  })
+)
 
 app.use((req, res, next) => {
   res.locals.url = req.originalUrl
