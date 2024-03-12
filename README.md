@@ -27,3 +27,12 @@ Skapat .njk filer.
 Skapat några routes i index.js
 
 ---
+
+Arbete del 2
+
+mephit
+
+Mer routes.
+Börjat med login formuläret.
+
+---

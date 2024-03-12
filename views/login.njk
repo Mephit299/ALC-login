@@ -1,4 +1,14 @@
 {% extends "layout.njk" %}
 {% block content %}
 
+    <h1>Login</h1>
+
+    <form action="/login" method="post">
+        <label for="name"></label>
+        <input type="text" id="name" name="name" required>
+        <label for="password"></label>
+        <input type="text" id="password" name="password" required>
+        <input type="submit" id="submit" name="submit">
+    </form>
+
 {% endblock %}
