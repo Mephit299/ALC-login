@@ -59,3 +59,14 @@ mephit
 
 bcrypt test.
 Början på login route.
+
+---
+
+Arbete del 5
+
+Fabian
+
+funktionel sql fråga så vi får användaren
+börjat på att kolla lösenord
+
+---
