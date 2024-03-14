@@ -29,29 +29,26 @@ async function(req, res){
         console.log(user)
         console.log(user[0])
         console.log(user[0].password)
-        console.log(encryptPassword('test'))
-        console.log(encryptPassword(req.body.password))
 
-        bcrypt.hash(password, saltRounds, function(err, hash) {
-            let encryptPassword = hash
-        })
         
-        //if (user[0].password === encryptPassword(req.body.password)){
-        //    req.session.name = req.body.username
-        //    res.redirect(`/user/:${req.body.username}`, {name: req.body.username})
-        //} else {
-            res.json({user, encrypted:encryptPassword(req.body.password)})
-        //}
-
+        bcrypt.compare(req.body.password, user[0].password, function(err, result) {
+            console.log(result)
+            if (result){
+                req.session.name = req.body.username
+                res.redirect(`user/:${req.body.username}`)
+            } else {
+                res.render('login.njk', {username:req.body.username, error: 'wrong password'})
+            }
+        })
      } catch (error){
         console.log(error)
-        res.redirect('/')
+        res.render('login.njk', {error: 'wrong username'})
     }
-
-    //req.session.name = req.body.username
-    //res.redirect(`user/:${req.body.name}`)
 })
 router.get('/user/:name', async function (req, res) {
+    if (req.session.name === undefined){
+        return res.redirect('/login')
+    }
     console.log(req.session.name)
     res.render('user.njk', {username: req.session.name})
 })

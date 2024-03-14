@@ -3,12 +3,25 @@
 
     <h1>Login</h1>
 
-    <form action="/login" method="post">
+    <form class="row g-3" action="/login" method="post">
+        <div class="col-md-6">
         <label for="username"></label>
-        <input type="text" id="name" name="username" required>
+        <input type="text" id="name" name="username" value="{{username}}"required>
+    </div>
+    <div class="col-md-6">
         <label for="password"></label>
         <input type="text" id="password" name="password" required>
+    </div>
+    <div class="col-12">
         <input type="submit" id="submit" name="submit">
+    </div>
     </form>
+    {% if error %}
+    {% for i in range(0,10) %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}
