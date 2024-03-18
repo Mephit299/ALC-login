@@ -77,3 +77,4 @@ mephit
 
 Express vadlidation av login.
 Fixed some typos.
+Express validator ville inte kolla på informationen från body så nu kan den endast göra det.

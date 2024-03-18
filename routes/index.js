@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {query, validationResult} = require('express-validator')
+const {body, validationResult} = require('express-validator')
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -19,8 +19,8 @@ router.get('/login', async function (req, res) {
 })
 
 router.post('/login', 
-query('username').isLength({min: 4, max: 32}), 
-query('password').isLength({min: 4, max: 32}),  
+body('username').isLength({min: 4, max: 32}), 
+body('password').isLength({min: 4, max: 32}),  
 async function(req, res){
     const result = validationResult(req);
     if (!result.isEmpty()){
