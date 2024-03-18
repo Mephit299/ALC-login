@@ -4,12 +4,12 @@
 * Fabian
 * Alvin
 
-## 11/03 - 24
+## 11/03 - 2024
 Baskod med bootstrap.
 npm run dev visar up index.njk.
 Kod för att prata med databasen finns men används inte (det finns ingen databas).
 
-## 12/03 - 24
+## 12/03 - 2024
 Planering enligt instruktioner.
 Resultat:
 ![Fabians fina bild på planeringen](planering.jpg)
@@ -70,3 +70,9 @@ funktionel sql fråga så vi får användaren
 börjat på att kolla lösenord
 
 ---
+
+## 18/03 - 2024
+
+mephit
+
+Express vadlidation av login.
