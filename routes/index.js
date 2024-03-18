@@ -19,12 +19,12 @@ router.get('/login', async function (req, res) {
 })
 
 router.post('/login', 
-query('username').isLength({min: 4, max: 30}), 
-query('password').isLength({min: 4, max: 30}),  
+query('username').isLength({min: 4, max: 32}), 
+query('password').isLength({min: 4, max: 32}),  
 async function(req, res){
     const result = validationResult(req);
     if (!result.isEmpty()){
-        return res.render('login.njk', {error: 'Userman and password must be 4-32 characters long.'})
+        return res.render('login.njk', {error: 'Username and password must be 4-32 characters long.'})
     }
     try{
         const [user] = await pool.promise().query(`SELECT * FROM alea_lacta_est_user WHERE alea_lacta_est_user.\`name\` = '${req.body.username}'`)
