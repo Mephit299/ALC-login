@@ -60,6 +60,20 @@ router.get('/user/:name', async function (req, res) {
     res.render('user.njk', req.session.user)
 })
 
+router.get('/user/:name/new', async function (req, res) {
+    res.render('create_tweep.njk', req.session.user)
+})
+router.post('/tweeps', async function (req, res) {
+    const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+    console.log(time)
+    res.redirect('/')
+})
+
+router.get('/tweeps', async function (req, res) {
+    const [tweeps] = await pool.promise().query('SELECT * FROM alea_leacta_est_tweep JOIN alea_lacta_est_user ON alea_leacta_est_tweep.user_id = alea_lacta_est_user.id')
+    res.render('tweeps.njk', {...req.session.user, tweeps})
+})
+
 router.get('/users', async function (req, res) {
     try{
     const [users] = await pool.promise().query('SELECT * FROM alea_lacta_est_user')
@@ -85,7 +99,7 @@ router.get('/uppdate_user', async function (req, res) {
 
 router.post('/uppdate_user', async function (req, res){
 
-    res.redirect(`/user/:${session.username}`)
+    res.redirect(`/user/:${req.session.username}`)
 })
 
 router.post('/user/:name/delete', async function (req, res){

@@ -1,0 +1,21 @@
+{% extends "layout.njk" %}
+{% import "navbar.njk" as navbar %}
+
+{% block content %}
+  {{ navbar.setActive("index", loggedIn, username) }}
+
+  <main class="container">
+  <h1>Home</h1>
+  <p>Welcome to the home page</p>
+  {% for tweep in tweeps %}
+  <div class="card">
+	<div class="card-header">
+	  {{tweep.name}}
+	</div>
+	<div class="card-body">
+	  {{tweep.text}}
+	</div>
+  </div>
+  {% endfor %}
+  </main>
+{% endblock %}
