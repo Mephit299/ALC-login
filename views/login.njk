@@ -1,16 +1,20 @@
 {% extends "layout.njk" %}
-{% block content %}
+{% import "navbar.njk" as navbar %}
 
+{% block content %}
+{{navbar.setActive("login", loggedIn, username)}}
+
+<main class="container">
     <h1>Login</h1>
 
     <form class="row g-3" action="/login" method="post">
         <div class="col-md-6">
         <label for="username"></label>
-        <input type="text" id="name" name="username" value="{{username}}"required placeholder="username">
+        <input type="text" id="name" name="username" value="{{username}}"required>
     </div>
     <div class="col-md-6">
         <label for="password"></label>
-        <input type="text" id="password" name="password" required placeholder="password">
+        <input type="text" id="password" name="password" required>
     </div>
     <div class="col-12">
         <input type="submit" id="submit" name="submit">
@@ -23,5 +27,6 @@
         </div>
         {% endfor %}
     {% endif %}
+</main>
 
 {% endblock %}
