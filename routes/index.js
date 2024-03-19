@@ -39,7 +39,7 @@ async function(req, res){
                 req.session.name = req.body.username
                 res.redirect(`user/:${req.body.username}`)
             } else {
-                res.render('login.njk', {username:req.body.username, error: 'wrong password'})
+                return res.render('login.njk', {username:req.body.username, error: 'wrong password'})
             }
         })
      } catch (error){
