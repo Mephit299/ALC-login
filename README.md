@@ -1,8 +1,9 @@
 # ALC-login
 ## Alea Lacta Est
-* Levi
+* Levi (Mephit)
 * Fabian
 * Alvin
+* Linus
 
 ## 11/03 - 2024
 Baskod med bootstrap.
