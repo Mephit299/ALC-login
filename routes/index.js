@@ -7,7 +7,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const pool = require('../db')
-const session = require('express-session')
+const session = require('express-session');
+const { redirect } = require('express/lib/response');
 
 
 router.get('/', async function (req, res) {
@@ -99,5 +100,18 @@ router.get('/hashtest', async function (req, res){
 
 })
 
+router.get('/tweeps/create', async function(req, res){
+    if(req.session.name === undefined) {
+        return res.redirect('/login')
+    }
+    res.render('create_tweep.njk')
+})
+
+router.post('/tweeps', async function(req, res){
+    const [id] = await pool.promise().query(`SELECT alea_lacta_est_user.id  from alea_lacta_est_user WHERE alea_lacta_est_user.name = '${req.session.name}'`)
+    console.log(id[0].id)
+    await pool.promise().query(`INSERT INTO alea_leacta_est_tweep (user_id, text) VALUES ('${id[0].id}', '${req.body.text}');`) // ${new Date().toISOString().slice(0,19).replace('T', ' ')}
+    return res.redirect('/')
+})
 
 module.exports = router

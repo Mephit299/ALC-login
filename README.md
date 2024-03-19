@@ -18,7 +18,7 @@ Resultat:
 
 Arbets del 1.
 
-Alvin
+### Alvin
 
 Skapat tabel i databasen.
 Skapat .njk filer.
@@ -28,7 +28,7 @@ Skapat några routes i index.js
 
 Arbete del 2
 
-mephit
+### mephit
 
 Mer routes.
 Börjat med login formuläret.
@@ -37,7 +37,7 @@ Börjat med login formuläret.
 
 Arbete del 3
 
-Fabian
+### Fabian
 
 gjort så att login form funkar
 lagt till navbar från Bootstrap
@@ -46,7 +46,7 @@ lagt till navbar från Bootstrap
 
 Arbets del 4
 
-Alvin
+### Alvin
 
 Fixat så att session fungerar.
 Börgat med bcrypt.
@@ -55,7 +55,7 @@ Börgat med bcrypt.
 
 Arbete del 5
 
-mephit
+### mephit
 
 bcrypt test.
 Början på login route.
@@ -64,7 +64,7 @@ Början på login route.
 
 Arbete del 5
 
-Fabian
+### Fabian
 
 funktionel sql fråga så vi får användaren
 börjat på att kolla lösenord
@@ -73,7 +73,7 @@ börjat på att kolla lösenord
 
 ## 18/03 - 2024
 
-mephit
+### mephit
 
 Express vadlidation av login.
 Fixed some typos.
@@ -81,7 +81,11 @@ Express validator ville inte kolla på informationen från body så nu kan den e
 
 ## 19/03 -2024
 
-mephit
+### mephit
 
 lite planering
 ![Levis fruktansvärda paintn 3d sketch](tweep_plans.jpg)
+
+### Linus
+
+Post tweep
