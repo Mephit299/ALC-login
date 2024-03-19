@@ -11,11 +11,11 @@ const session = require('express-session')
 
 
 router.get('/', async function (req, res) {
-    res.render('index.njk')
+    res.render('index.njk', req.session.user)
 })
 
 router.get('/login', async function (req, res) {
-    res.render('login.njk')
+    res.render('login.njk', req.session.user)
 })
 
 router.post('/login', 
@@ -37,12 +37,12 @@ async function(req, res){
                 req.session.name = req.body.username
                 res.redirect(`user/:${req.body.username}`)
             } else {
-                res.render('login.njk', {username:req.body.username, error: 'wrong password'})
+                res.render('login.njk', {username:req.body.username, error: 'wrong password', ...req.session.user})
             }
         })
      } catch (error){
         console.log(error)
-        res.render('login.njk', {error: 'wrong username'})
+        res.render('login.njk', {error: 'wrong username', ...req.session.user})
     }
 })
 router.get('/user/:name', async function (req, res) {
@@ -50,7 +50,14 @@ router.get('/user/:name', async function (req, res) {
         return res.redirect('/login')
     }
     console.log(req.session.name)
-    res.render('user.njk', {username: req.session.name})
+    let user = {
+        username: req.session.name,
+        loggedIn: true,
+    }
+    req.session.user = user
+    console.log(req.session.user)
+    console.log({username: req.session.name})
+    res.render('user.njk', req.session.user)
 })
 
 router.get('/users', async function (req, res) {
@@ -64,7 +71,7 @@ router.get('/users', async function (req, res) {
 })
 
 router.get('/create_account', async function (req, res) {
-    res.render('/create_account.njk')
+    res.render('create_account.njk')
 })
 
 router.post('/create_account', async function (req, res) {
@@ -81,7 +88,7 @@ router.post('/uppdate_user', async function (req, res){
     res.redirect(`/user/:${session.username}`)
 })
 
-router.post('/delete_user', async function (req, res){
+router.post('/user/:name/delete', async function (req, res){
     res.redirect('/')
 })
 
