@@ -110,10 +110,9 @@ router.get('/tweeps/create', async function(req, res){
 router.post('/tweeps', 
 body('text').isLength({min: 1, max: 255}),
 async function(req, res){
-    if (!validationResult(req).isEmpty)
+    if (!validationResult(req).isEmpty())
         return res.render('create_tweep.njk', {error: "Tweep was to long (max 255 characters)"})
     const [id] = await pool.promise().query(`SELECT alea_lacta_est_user.id  from alea_lacta_est_user WHERE alea_lacta_est_user.name = '${req.session.name}'`)
-    console.log(id[0].id)
     await pool.promise().query(`INSERT INTO alea_leacta_est_tweep (user_id, text) VALUES ('${id[0].id}', '${req.body.text}');`) // ${new Date().toISOString().slice(0,19).replace('T', ' ')}
     return res.redirect('/')
 })
