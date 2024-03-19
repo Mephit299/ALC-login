@@ -12,11 +12,11 @@ const { redirect } = require('express/lib/response');
 
 
 router.get('/', async function (req, res) {
-    res.render('index.njk')
+    res.render('index.njk', req.session.user)
 })
 
 router.get('/login', async function (req, res) {
-    res.render('login.njk')
+    res.render('login.njk', req.session.user)
 })
 
 router.post('/login', 
@@ -40,7 +40,7 @@ async function(req, res){
                 req.session.name = req.body.username
                 res.redirect(`user/:${req.body.username}`)
             } else {
-                return res.render('login.njk', {username:req.body.username, error: 'wrong password'})
+                return res.render('login.njk', {username:req.body.username, error: 'wrong password',})
             }
         })
      } catch (error){
@@ -52,8 +52,13 @@ router.get('/user/:name', async function (req, res) {
     if (req.session.name === undefined){
         return res.redirect('/login')
     }
+    let user = {
+        username: req.session.name,
+        loggedIn: true,
+    }
+    req.session.user = user
     console.log(req.session.name)
-    res.render('user.njk', {username: req.session.name})
+    res.render('user.njk', req.session.user)
 })
 
 router.get('/users', async function (req, res) {
@@ -104,7 +109,7 @@ router.get('/tweeps/create', async function(req, res){
     if(req.session.name === undefined) {
         return res.redirect('/login')
     }
-    res.render('create_tweep.njk')
+    res.render('create_tweep.njk', req.session.user)
 })
 
 router.post('/tweeps', 
