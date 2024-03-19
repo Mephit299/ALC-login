@@ -1,8 +1,9 @@
 # ALC-login
 ## Alea Lacta Est
-* Levi
+* Levi (Mephit)
 * Fabian
 * Alvin
+* Linus
 
 ## 11/03 - 2024
 Baskod med bootstrap.
@@ -84,7 +85,7 @@ Express validator ville inte kolla på informationen från body så nu kan den e
 ### mephit
 
 lite planering
-![Levis fruktansvärda paintn 3d sketch](tweep_plans.jpg)
+![Levis fruktansvärda paint 3d sketch](tweep_plans.jpg)
 
 ### Linus
 
