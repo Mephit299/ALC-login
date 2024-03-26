@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const {query, validationResult} = require('express-validator')
+const {body, validationResult} = require('express-validator')
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const pool = require('../db')
-const session = require('express-session')
+const session = require('express-session');
+const { redirect } = require('express/lib/response');
 
 
 router.get('/', async function (req, res) {
@@ -19,11 +20,13 @@ router.get('/login', async function (req, res) {
 })
 
 router.post('/login', 
-query('username').isLength({min: 4, max: 30}), 
-query('password').isLength({min: 4, max: 30}),  
+body('username').isLength({min: 4, max: 32}), 
+body('password').isLength({min: 4, max: 32}),  
 async function(req, res){
-    const result = validationResult
-    
+    const result = validationResult(req);
+    if (!result.isEmpty()){
+        return res.render('login.njk', {error: 'Username and password must be 4-32 characters long.'})
+    }
     try{
         const [user] = await pool.promise().query(`SELECT * FROM alea_lacta_est_user WHERE alea_lacta_est_user.\`name\` = '${req.body.username}'`)
         console.log(user)
@@ -49,7 +52,6 @@ router.get('/user/:name', async function (req, res) {
     if (req.session.name === undefined){
         return res.redirect('/login')
     }
-    console.log(req.session.name)
     let user = {
         username: req.session.name,
         loggedIn: true,
@@ -118,5 +120,21 @@ router.get('/hashtest', async function (req, res){
 
 })
 
+router.get('/tweeps/create', async function(req, res){
+    if(req.session.name === undefined) {
+        return res.redirect('/login')
+    }
+    res.render('create_tweep.njk', req.session.user)
+})
+
+router.post('/tweeps', 
+body('text').isLength({min: 1, max: 255}),
+async function(req, res){
+    if (!validationResult(req).isEmpty())
+        return res.render('create_tweep.njk', {error: "Tweep was to long (max 255 characters)"})
+    const [id] = await pool.promise().query(`SELECT alea_lacta_est_user.id  from alea_lacta_est_user WHERE alea_lacta_est_user.name = '${req.session.name}'`)
+    await pool.promise().query(`INSERT INTO alea_leacta_est_tweep (user_id, text) VALUES ('${id[0].id}', '${req.body.text}');`) // ${new Date().toISOString().slice(0,19).replace('T', ' ')}
+    return res.redirect('/')
+})
 
 module.exports = router
