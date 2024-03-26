@@ -3,16 +3,25 @@
   <ul class="nav nav-tabs">
     <li class="nav-item">
       {% if currentPage == "index" %}
-      <a class="nav-link active" aria-current="page" href="/">Index</a>
+        <a class="nav-link active" aria-current="page" href="/">Index</a>
       {% else %}
-      <a class="nav-link" href="/">Index</a>
+        <a class="nav-link" href="/">Index</a>
       {% endif %}
     </li>
+
+    <li class="nav-item">
+      {% if currentPage == "tweeps" %}
+        <a class="nav-link active" aria-current="page" href="/tweeps">Tweeps</a>
+      {% else %}
+        <a class="nav-link" href="/tweeps">Tweeps</a>
+      {% endif %}
+    </li>
+
     <li class="nav-item">
       {% if currentPage == "login" %}
-      <a class="nav-link active" aria-current="page" href="/login">Login</a>
+        <a class="nav-link active" aria-current="page" href="/login">Login</a>
       {% else %}
-      <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/login">Login</a>
       {% endif %}
     </li>
 
@@ -39,6 +48,16 @@
 
       <li class="nav-item">
         <a class="nav-link disabled" aria-disabled="true" href="#">Delete</a>
+      </li>
+    {% endif %}
+
+    {% if loggedIn == true %}
+      <li class="nav-item">
+        <a class="nav-link" href="/user/logout">Log out</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link disabled" aria-disabled="true" href="#">Log out</a>
       </li>
     {% endif %}
   </ul>

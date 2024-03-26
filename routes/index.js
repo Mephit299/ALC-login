@@ -40,12 +40,12 @@ async function(req, res){
                 req.session.name = req.body.username
                 res.redirect(`user/:${req.body.username}`)
             } else {
-                return res.render('login.njk', {username:req.body.username, error: 'wrong password',})
+                res.render('login.njk', {username:req.body.username, error: 'wrong password', ...req.session.user})
             }
         })
      } catch (error){
         console.log(error)
-        res.render('login.njk', {error: 'wrong username'})
+        res.render('login.njk', {error: 'wrong username', ...req.session.user})
     }
 })
 router.get('/user/:name', async function (req, res) {
@@ -57,8 +57,23 @@ router.get('/user/:name', async function (req, res) {
         loggedIn: true,
     }
     req.session.user = user
-    console.log(req.session.name)
+    console.log(req.session.user)
+    console.log({username: req.session.name})
     res.render('user.njk', req.session.user)
+})
+
+router.get('/user/:name/new', async function (req, res) {
+    res.render('create_tweep.njk', req.session.user)
+})
+router.post('/tweeps', async function (req, res) {
+    const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+    console.log(time)
+    res.redirect('/')
+})
+
+router.get('/tweeps', async function (req, res) {
+    const [tweeps] = await pool.promise().query('SELECT * FROM alea_leacta_est_tweep JOIN alea_lacta_est_user ON alea_leacta_est_tweep.user_id = alea_lacta_est_user.id')
+    res.render('tweeps.njk', {...req.session.user, tweeps})
 })
 
 router.get('/users', async function (req, res) {
@@ -72,7 +87,7 @@ router.get('/users', async function (req, res) {
 })
 
 router.get('/create_account', async function (req, res) {
-    res.render('/create_account.njk')
+    res.render('create_account.njk')
 })
 
 router.post('/create_account', async function (req, res) {
@@ -86,10 +101,10 @@ router.get('/uppdate_user', async function (req, res) {
 
 router.post('/uppdate_user', async function (req, res){
 
-    res.redirect(`/user/:${session.username}`)
+    res.redirect(`/user/:${req.session.username}`)
 })
 
-router.post('/delete_user', async function (req, res){
+router.post('/user/:name/delete', async function (req, res){
     res.redirect('/')
 })
 
