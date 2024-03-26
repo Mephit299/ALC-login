@@ -99,4 +99,5 @@ create account
 
 ### levi
 
-Express validation av create account
+Express validation av create account.
+Skapade en try catch för create account.

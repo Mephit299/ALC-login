@@ -95,11 +95,15 @@ body('zip').isLength({min:4}),
  async function (req, res) {
     if (!validationResult(req).isEmpty())
         return res.render('create_account.njk', {error:"poggers test error"})
+    try{
     bcrypt.hash(req.body.password, saltRounds, async function(err, hash) {
         await pool.promise().query(`INSERT INTO alea_lacta_est_user (name, password, mail) VALUES
     ('${req.body.username}', '${hash/*brownies*/}', '${req.body.mail}');`)
     })
     res.json(req.body)
+} catch (error){
+    return res.render('create_account.njk', {error: "Failed to create an account"})
+}
 })
 
 router.get('/uppdate_user', async function (req, res) {
