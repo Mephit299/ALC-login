@@ -13,7 +13,9 @@
 		<div class="col-12">
 			<input type="submit" id="submit" name="submit">
 		</div>
-
+		{% if error %}
+		<div>{{error}}</div>
+		{% endif %}
 	</form>
 
 {% endblock %}
