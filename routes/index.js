@@ -91,7 +91,10 @@ router.get('/create/account', async function (req, res) {
 })
 
 router.post('/create/account', async function (req, res) {
-    //kanske borde gå till index istället
+    bcrypt.hash(req.body.password, saltRounds, async function(err, hash) {
+        await pool.promise().query(`INSERT INTO alea_lacta_est_user (name, password, mail) VALUES
+    ('${req.body.username}', '${hash/*brownies*/}', '${req.body.mail}');`)
+    })
     res.json(req.body)
 })
 
