@@ -86,13 +86,13 @@ router.get('/users', async function (req, res) {
     }
 })
 
-router.get('/create_account', async function (req, res) {
+router.get('/create/account', async function (req, res) {
     res.render('create_account.njk')
 })
 
-router.post('/create_account', async function (req, res) {
+router.post('/create/account', async function (req, res) {
     //kanske borde gå till index istället
-    res.redirect(`/user/:${req.body.username}`)
+    res.json(req.body)
 })
 
 router.get('/uppdate_user', async function (req, res) {
